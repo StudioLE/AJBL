@@ -5,7 +5,8 @@ tmp
 
 node_modules/
 bower_components/
-examples/
+build/
+releases/
 screenshots/
 
 build.pem

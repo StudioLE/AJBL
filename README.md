@@ -2,9 +2,11 @@
 
 An unofficial Google Chrome extension providing an easy method to download individual or all assets from the Architect's Journal Building Library.
 
+Download it from the [Chrome Web Store](https://chrome.google.com/webstore/detail/ajbl-helper/goboogobmejimdndakiighpigelfbkki)
+
 ## Releases
 
-All releases are available in the [/releases](https://github.com/StudioLE/ajbl/tree/master/releases) directory.
+All tagged releases are available at [/releases](https://github.com/StudioLE/AJBL/releases).
 
 ## Contributing
 
@@ -48,8 +50,4 @@ gulp clean
 Bump the package version numbers
 ```
 gulp bump
-```
-Create a `.crx` release
-```
-gulp release
 ```
