@@ -38,8 +38,11 @@ var downloadAssets = function(assets) {
  * Create download all context menu entry
  */
 chrome.contextMenus.create({
- title: 'AJBL Helper - Download all files',
- onclick: sendGetAssets
+  title: 'AJBL Helper - Download all files',
+  onclick: sendGetAssets,
+  documentUrlPatterns: [
+    "http://www.ajbuildingslibrary.co.uk/projects/display/id/*"
+  ]
 })
 
 /**
@@ -48,7 +51,10 @@ chrome.contextMenus.create({
 chrome.contextMenus.create({
  title: 'AJBL Helper - Download file',
  contexts: ["image"],
- onclick: sendGetAsset
+ onclick: sendGetAsset,
+  documentUrlPatterns: [
+    "http://www.ajbuildingslibrary.co.uk/projects/display/id/*"
+  ]
 })
 
 /**
