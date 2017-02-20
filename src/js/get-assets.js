@@ -50,7 +50,7 @@ chrome.runtime.onMessage.addListener(
     if(request.message === 'getAssets') {
       getAssets()
     }
-    if(request.message === 'getAsset') {
+    else if(request.message === 'getAsset') {
       getAsset(request.src)
     }
     else {
