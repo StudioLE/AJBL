@@ -2,10 +2,9 @@
  * Get all asset ids
  */
 var getAssets = function() {
-  console.log('getAssets() called')
   var assets = []
   // For each item
-  $('.jcarousel-item a, .slick-slide a').each(function(index, el) {
+  $('.jcarousel-item a, .slick-slide a, li.tip a').each(function(index, el) {
     // Add to list
     assets.push({
       id: $(this).attr('rel'),
@@ -15,7 +14,6 @@ var getAssets = function() {
   })
   .promise()
   .done(function() {
-    console.log(assets)
     // Send message to background.js
     chrome.runtime.sendMessage({
       message: 'downloadAssets', 
@@ -29,7 +27,6 @@ var getAssets = function() {
  */
 var getAsset = function(src) {
   src = src.substr('http://www.ajbuildingslibrary.co.uk'.length)
-  console.log('getAsset() called: ' + src)
   var asset = {
     id: $('img[src$="' + src + '"]').parent().attr('rel'),
     title: $('img[src$="' + src + '"]').parent().attr('title'),
