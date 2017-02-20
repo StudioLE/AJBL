@@ -1,0 +1,8 @@
+{
+  "globals": {
+    "document": false,
+    "console": false,
+    "$": false
+  },
+  "asi": true
+}
