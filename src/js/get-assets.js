@@ -4,7 +4,7 @@
 var getAssets = function() {
   var assets = []
   // For each item
-  $('.jcarousel-item a, .slick-slide a, li.tip a').each(function(index, el) {
+  $('.jcarousel-item a, .slick-slide a, li.tip a').each(function() {
     // Add to list
     assets.push({
       id: $(this).attr('rel'),
@@ -16,7 +16,7 @@ var getAssets = function() {
   .done(function() {
     // Send message to background.js
     chrome.runtime.sendMessage({
-      message: 'downloadAssets', 
+      message: 'downloadAssets',
       assets: assets
     })
   })
@@ -34,24 +34,22 @@ var getAsset = function(src) {
   }
   // Send message to background.js
   chrome.runtime.sendMessage({
-    message: 'downloadAssets', 
-    assets: [asset]
+    message: 'downloadAssets',
+    assets: [ asset ]
   })
 }
 
 /**
  * Message listener
  */
-chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-    if(request.message === 'getAssets') {
-      getAssets()
-    }
-    else if(request.message === 'getAsset') {
-      getAsset(request.src)
-    }
-    else {
-      console.error('Unknown message: ' + request.message)
-    }
+chrome.runtime.onMessage.addListener(function(request) {
+  if(request.message === 'getAssets') {
+    getAssets()
   }
-)
+  else if(request.message === 'getAsset') {
+    getAsset(request.src)
+  }
+  else {
+    console.error('Unknown message: ' + request.message)
+  }
+})

@@ -2,7 +2,10 @@
  * Send getAssets request
  */
 var sendGetAssets = function(info, tab) {
-  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+  chrome.tabs.query({
+    active: true,
+    currentWindow: true
+  }, function(tabs) {
     // Send message to content.js
     chrome.tabs.sendMessage(tabs[0].id, {
       message: 'getAssets'
@@ -14,7 +17,10 @@ var sendGetAssets = function(info, tab) {
  * Send getAsset request
  */
 var sendGetAsset = function(info, tab) {
-  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+  chrome.tabs.query({
+    active: true,
+    currentWindow: true
+  }, function(tabs) {
     // Send message to content.js
     chrome.tabs.sendMessage(tabs[0].id, {
       message: 'getAsset',
@@ -41,7 +47,7 @@ chrome.contextMenus.create({
   title: 'AJBL Helper - Download all files',
   onclick: sendGetAssets,
   documentUrlPatterns: [
-    "https://www.ajbuildingslibrary.co.uk/projects/display/id/*"
+    'https://www.ajbuildingslibrary.co.uk/projects/display/id/*'
   ]
 })
 
@@ -49,24 +55,22 @@ chrome.contextMenus.create({
  * Create download file context menu entry
  */
 chrome.contextMenus.create({
- title: 'AJBL Helper - Download file',
- contexts: ["image"],
- onclick: sendGetAsset,
+  title: 'AJBL Helper - Download file',
+  contexts: [ 'image' ],
+  onclick: sendGetAsset,
   documentUrlPatterns: [
-    "https://www.ajbuildingslibrary.co.uk/projects/display/id/*"
+    'https://www.ajbuildingslibrary.co.uk/projects/display/id/*'
   ]
 })
 
 /**
  * Message listener
  */
-chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-    if(request.message === 'downloadAssets') {
-      downloadAssets(request.assets)
-    }
-    else {
-      alert('AJBL Helper Error: unknown message: ' + request.message)
-    }
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  if(request.message === 'downloadAssets') {
+    downloadAssets(request.assets)
   }
-)
+  else {
+    alert('AJBL Helper Error: unknown message: ' + request.message)
+  }
+})
