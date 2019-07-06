@@ -26,7 +26,7 @@ var getAssets = function() {
  * Get asset by src
  */
 var getAsset = function(src) {
-  src = src.substr('http://www.ajbuildingslibrary.co.uk'.length)
+  src = src.substr('https://www.ajbuildingslibrary.co.uk'.length)
   var asset = {
     id: $('img[src$="' + src + '"]').parent().attr('rel'),
     title: $('img[src$="' + src + '"]').parent().attr('title'),

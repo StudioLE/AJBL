@@ -29,7 +29,7 @@ var sendGetAsset = function(info, tab) {
 var downloadAssets = function(assets) {
   assets.forEach(function(asset) {
     chrome.downloads.download({
-      url: 'http://www.ajbuildingslibrary.co.uk/download.php?id=' + asset.id
+      url: 'https://www.ajbuildingslibrary.co.uk/download.php?id=' + asset.id
     })
   })
 }
@@ -41,7 +41,7 @@ chrome.contextMenus.create({
   title: 'AJBL Helper - Download all files',
   onclick: sendGetAssets,
   documentUrlPatterns: [
-    "http://www.ajbuildingslibrary.co.uk/projects/display/id/*"
+    "https://www.ajbuildingslibrary.co.uk/projects/display/id/*"
   ]
 })
 
@@ -53,7 +53,7 @@ chrome.contextMenus.create({
  contexts: ["image"],
  onclick: sendGetAsset,
   documentUrlPatterns: [
-    "http://www.ajbuildingslibrary.co.uk/projects/display/id/*"
+    "https://www.ajbuildingslibrary.co.uk/projects/display/id/*"
   ]
 })
 

@@ -13,7 +13,7 @@
   },
   "content_scripts": [{
     "matches": [
-      "http://www.ajbuildingslibrary.co.uk/projects/display/id/*"
+      "https://www.ajbuildingslibrary.co.uk/projects/display/id/*"
     ],
     "js": [
       "js/vendor.js",
