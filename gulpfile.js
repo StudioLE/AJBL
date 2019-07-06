@@ -1,86 +1,68 @@
-// Core modules
-var p = require('path')
-var ver = require('./package.json').version
-
 // Node modules
-var gulp = require('gulp')
+const { src, dest, parallel } = require('gulp')
 var gp_bump = require('gulp-bump')
 var gp_clean = require('gulp-clean')
 var gp_concat = require('gulp-concat')
 var gp_rename = require('gulp-rename')
-var gp_uglify = require('gulp-uglify')
-var p = require('path')
 
-var build = {
-  /**
-   * Format build directory path
-   */
-  path: function(path) {
-    if( ! path) path = ''
-    return p.join('build', path)
-  },
-
-
-  /**
-   * Format version query string
-   */
-  version: function() {
-    return '?v' + ver
-  }
+// Bump package.json version
+var bump_package = function () {
+  return src([ './package.json' ])
+  .pipe(gp_bump({
+    type: 'patch'
+  }))
+  .pipe(dest('./'))
 }
 
-// Bump version
-gulp.task('bump', function(){
-  gulp.src(['./bower.json', './package.json'])
+// Bump manifest.json version
+var bump_manifest = function() {
+  return src([ 'src/manifest.json' ])
   .pipe(gp_bump({
-    type:'minor'
+    type: 'patch'
   }))
-  .pipe(gulp.dest('./'))
-})
+  .pipe(dest('src'))
+}
 
 // Clean build directory
- gulp.task('clean', function () {
-  return gulp.src('build', {
+var clean = function() {
+  return src('build', {
     // read: false
   })
   .pipe(gp_clean())
-})
+}
 
-// Copy static assets
-gulp.task('assets', function() {
-  // Manifest
-  gulp.src('src/manifest.json')
-  .pipe(gulp.dest(build.path()))
-  // icons
-  gulp.src('src/icons/*')
-  .pipe(gulp.dest(build.path('icons')))
-})
+// Copy manifest.json
+var assets_manifest = function() {
+  return src('src/manifest.json')
+  .pipe(dest('build'))
+}
+
+// Copy icons
+var assets_icons = function() {
+  return src('src/icons/*')
+  .pipe(dest('build/icons'))
+}
 
 // Build app JS
-gulp.task('js', function() {
-  gulp.src([
+var js = function() {
+  return src([
     'src/js/get-assets.js',
     'src/js/background.js'
   ])
-  // .pipe(gp_concat('concat.js'))
-  // .pipe(gp_rename('app.js'))
-  // .pipe(gp_uglify())
-  .pipe(gulp.dest(build.path('js')))
-})
+  .pipe(dest('build/js'))
+}
 
 // Build vendor JS
-gulp.task('vendor-js', function() {
-  gulp.src([
-    'src/bower_components/jquery/dist/jquery.min.js'
+var vendor_js = function() {
+  return src([
+    'node_modules/jquery/dist/jquery.min.js'
   ])
   .pipe(gp_concat('concat.js'))
   .pipe(gp_rename('vendor.js'))
-  .pipe(gp_uglify())
-  .pipe(gulp.dest(build.path('js')))
-})
+  .pipe(dest('build/js'))
+}
 
-// Build task
-gulp.task('build', ['assets', 'js', 'vendor-js'])
-
-// Default task
-gulp.task('default', ['build'])
+exports.bump = parallel(bump_package, bump_manifest)
+exports.clean = clean
+exports.build = parallel(assets_manifest, assets_icons, js, vendor_js)
+exports.default = exports.build
