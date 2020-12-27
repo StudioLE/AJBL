@@ -1,6 +1,6 @@
 {
   "name": "ajbl-helper",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Google Chrome extension to download individual or all files from AJBL",
   "repository": "https://github.com/StudioLE/AJBL",
   "license": "",
